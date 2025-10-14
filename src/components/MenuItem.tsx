@@ -7,12 +7,18 @@ interface MenuItemProps {
   quantity: number;
   onAdd: () => void;
   onRemove: () => void;
+  icon?: string;
 }
 
-const MenuItem = ({ name, price, quantity, onAdd, onRemove }: MenuItemProps) => {
+const MenuItem = ({ name, price, quantity, onAdd, onRemove, icon }: MenuItemProps) => {
   return (
     <div className="bg-card backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-primary/20">
       <div className="flex justify-between items-center gap-4">
+        {icon && (
+          <div className="text-4xl flex-shrink-0">
+            {icon}
+          </div>
+        )}
         <div className="flex-1">
           <h3 className="font-poppins font-semibold text-foreground text-lg">
             {name}

@@ -9,7 +9,7 @@ interface CartFooterProps {
 
 const CartFooter = ({ total, onPlaceOrder, itemCount }: CartFooterProps) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-card/95 backdrop-blur-lg border-t-2 border-accent shadow-2xl z-50">
+    <div className="fixed bottom-12 left-0 right-0 bg-card/95 backdrop-blur-lg border-t-2 border-accent shadow-2xl z-50">
       <div className="container max-w-4xl mx-auto px-4 py-4">
         <div className="flex justify-between items-center gap-4">
           <div>
