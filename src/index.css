@@ -169,3 +169,38 @@ All colors MUST be HSL.
     opacity: 0;
   }
 }
+
+@keyframes float-text {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-float {
+  animation: float-text 3s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: float-text 4s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #ff9900, 0 0 20px #ff9900,
+      0 0 25px #ff9900;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffaa00,
+      0 0 40px #ffaa00, 0 0 50px #ffaa00;
+  }
+}
