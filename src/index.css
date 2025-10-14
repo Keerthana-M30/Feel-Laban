@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import "./components/ui/custom-mobile.css";
+
 /* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
 All colors MUST be HSL.
 */
@@ -101,5 +103,69 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Twinkling stars background */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.star {
+  position: absolute;
+  background-color: white;
+  border-radius: 50%;
+  animation: twinkle var(--duration, 3s) infinite ease-in-out;
+  opacity: 0;
+}
+
+@keyframes twinkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+/* Food icons */
+.food-icon {
+  position: fixed;
+  left: -100px;
+  width: 24px;
+  height: 24px;
+  pointer-events: none;
+  z-index: 0;
+  animation: float linear infinite;
+}
+
+@keyframes float {
+  0% {
+    transform: translateX(0) translateY(0) translateZ(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(calc(100vw + 100px)) translateY(var(--drop, 0))
+      translateZ(0);
+    opacity: 0;
   }
 }

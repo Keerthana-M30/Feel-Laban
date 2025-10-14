@@ -1,0 +1,81 @@
+/* Custom mobile styles for 360px screens and below */
+@media (max-width: 360px) {
+  .mobile-small-text {
+    font-size: 0.75rem; /* 12px */
+  }
+
+  .mobile-small-gap {
+    gap: 0.25rem;
+  }
+
+  .mobile-padding-small {
+    padding: 0.5rem;
+  }
+
+  .mobile-padding-x-small {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+
+  .mobile-button-small {
+    height: 1.75rem;
+    width: 1.75rem;
+    padding: 0.125rem;
+  }
+
+  .mobile-icon-small {
+    height: 0.75rem;
+    width: 0.75rem;
+  }
+
+  .mobile-container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  .mobile-section {
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-item-padding {
+    padding: 0.75rem;
+  }
+
+  .mobile-quantity-controls {
+    gap: 0.125rem;
+    padding: 0.125rem;
+  }
+
+  .mobile-quantity-span {
+    font-size: 0.875rem;
+    min-width: 1.5rem;
+  }
+
+  .mobile-image {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+/* Even more specific styles for 320px and below */
+@media (max-width: 320px) {
+  .mobile-button-xsmall {
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+  .mobile-icon-xsmall {
+    height: 0.625rem;
+    width: 0.625rem;
+  }
+
+  .mobile-quantity-span {
+    font-size: 0.75rem;
+    min-width: 1.25rem;
+  }
+
+  .mobile-image {
+    width: 2rem;
+    height: 2rem;
+  }
+}
