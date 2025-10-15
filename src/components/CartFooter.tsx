@@ -16,7 +16,7 @@ const CartFooter = ({ total, onPlaceOrder, itemCount }: CartFooterProps) => {
             <p className="font-poppins text-xs sm:text-sm text-muted-foreground">
               Total Amount
             </p>
-            <p className="font-fredoka text-xl sm:text-2xl text-accent animate-glow mobile-small-text">
+            <p className="font-poppins text-xl sm:text-2xl text-accent mobile-small-text">
               ₹{total}
             </p>
           </div>

@@ -2,7 +2,12 @@ import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -64,8 +69,9 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        fredoka: ['Fredoka One', 'cursive'],
-        poppins: ['Poppins', 'sans-serif'],
+        fredoka: ["Fredoka One", "cursive"],
+        "dancing-script": ["Dancing Script", "cursive"],
+        poppins: ["Poppins", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

@@ -211,12 +211,19 @@ const Index = () => {
       <VisualEffects />
       <FloatingElements />
 
-      <div className="relative z-20 container max-w-4xl mx-auto px-3 py-6 pb-20 sm:px-4 sm:py-8 sm:pb-24 md:pb-32 mobile-container">
+      <div className="relative z-20 container max-w-4xl mx-auto px-3 py-6 pb-32 sm:px-4 sm:py-8 sm:pb-24 md:pb-32 mobile-container">
         {/* Header */}
         <div className="text-center mb-8 sm:mb-12 animate-float">
-          <h1 className="font-fredoka text-3xl sm:text-4xl md:text-7xl text-foreground mb-2 drop-shadow-2xl animate-glow">
-            Feel Laban
-          </h1>
+          <div className="flex items-center justify-center mb-2 group hover:cursor-pointer">
+            <img
+              src="/FL logo.png"
+              alt="Feel Laban Logo"
+              className="h-10 sm:h-14 md:h-16 w-auto object-contain mr-2 sm:mr-3 transition-all duration-300 group-hover:scale-110 group-hover:animate-glow rounded-sm"
+            />
+            <h1 className="font-dancing-script text-2xl sm:text-3xl md:text-5xl text-foreground drop-shadow-2xl">
+              Feel Laban
+            </h1>
+          </div>
           <p className="font-poppins text-base sm:text-lg text-muted-foreground">
             Order Your Favorite Delights
           </p>
