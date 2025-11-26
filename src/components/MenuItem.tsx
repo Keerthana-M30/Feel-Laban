@@ -40,7 +40,7 @@ const MenuItem = ({
         ) : null}
 
         <div className="flex-1 min-w-0">
-          <h3 className="font-poppins font-medium text-foreground text-xs mobile-small-text truncate">
+          <h3 className="font-poppins font-medium text-foreground text-sm mobile-small-text truncate">
             {name}
           </h3>
           <p className="font-poppins text-primary text-sm font-bold mt-1 mobile-small-text">
@@ -54,9 +54,9 @@ const MenuItem = ({
                   size="icon"
                   variant="ghost"
                   onClick={onRemove}
-                  className="h-5 w-5 rounded-full hover:bg-secondary/10 transition-all text-foreground"
+                  className="h-5 w-5 rounded-full hover:bg-secondary/10 transition-all text-foreground font-bold"
                 >
-                  <Minus className="h-2.5 w-2.5 text-primary" />
+                  <Minus className="h-2.5 w-2.5 text-primary font-bold" />
                 </Button>
 
                 <span className="font-poppins font-bold text-foreground text-xs min-w-[1.25rem] text-center mobile-quantity-span">
@@ -67,16 +67,16 @@ const MenuItem = ({
                   size="icon"
                   variant="ghost"
                   onClick={onAdd}
-                  className="h-5 w-5 rounded-full hover:bg-secondary/10 transition-all text-foreground"
+                  className="h-5 w-5 rounded-full hover:bg-secondary/10 transition-all text-foreground font-bold"
                 >
-                  <Plus className="h-2.5 w-2.5 text-primary" />
+                  <Plus className="h-2.5 w-2.5 text-primary font-bold" />
                 </Button>
               </div>
             ) : (
               <Button
                 size="sm"
                 onClick={onAdd}
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-medium px-3 py-1 text-xs rounded-full h-6"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-medium px-3 py-1 text-xs rounded-md h-6"
               >
                 Add
               </Button>

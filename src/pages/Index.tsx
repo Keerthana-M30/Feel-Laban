@@ -1,6 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import { Utensils, X } from "lucide-react";
+import {
+  Bell,
+  ChevronRight,
+  Heart,
+  MessageCircle,
+  Utensils,
+  X,
+} from "lucide-react";
 import MenuItem from "@/components/MenuItem";
 import { Button } from "@/components/ui/button";
 
@@ -24,10 +31,10 @@ const CATEGORIES = [
   { id: "all", name: "All" },
   { id: "koshari", name: "KOSHARI" },
   { id: "salankatiya", name: "SALANKATIYA" },
-  { id: "louah", name: "Louah" },
-  { id: "quasthutah", name: "Quasthutah" },
-  { id: "specials", name: "Specials" },
-  { id: "shakes", name: "Shakes" },
+  { id: "louah", name: "LOUAH" },
+  { id: "qashtutah", name: "QASHTUTAH" },
+  { id: "specials", name: "SPECIALS" },
+  { id: "shakes", name: "SHAKES" },
 ];
 
 const Index = () => {
@@ -80,27 +87,27 @@ const Index = () => {
 
     // Louah - 350
     "Nutella Pistachio Kinder": {
-      name: "Louah Nutella Pistachio Kinder",
+      name: "LOUAH Nutella Pistachio Kinder",
       price: 350,
       quantity: 0,
       image: "/Feel Laban - Kinder Choclate (TV Size).png",
     },
     "Chocolate Kinder": {
-      name: "Louah Chocolate Kinder",
+      name: "LOUAH Chocolate Kinder",
       price: 350,
       quantity: 0,
       image: "/Feel Laban - Kinder Choclate (TV Size).png",
     },
 
-    // Quasthutah - 290
+    // Qashtutah - 290
     Mango: {
-      name: "Quasthutah Mango",
+      name: "QASHTUTAH Mango",
       price: 290,
       quantity: 0,
       image: "/Feel Laban - Kinder Choclate (TV Size).png",
     },
-    "Quasthutah Pistachio Nutella": {
-      name: "Quasthutah Pistachio Nutella",
+    "Qashtutah Pistachio Nutella": {
+      name: "QASHTUTAH Pistachio Nutella",
       price: 290,
       quantity: 0,
       image: "/Feel Laban - Kinder Choclate (TV Size).png",
@@ -175,6 +182,22 @@ const Index = () => {
   const [activeTab, setActiveTab] = useState("all");
   // State for cart visibility
   const [isCartOpen, setIsCartOpen] = useState(false);
+  // State for customer name
+  const [customerName, setCustomerName] = useState("");
+
+  useEffect(() => {
+    // Prevent background scrolling when cart is open
+    if (isCartOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isCartOpen]);
 
   const updateQuantity = (key: string, delta: number) => {
     setCart((prev) => ({
@@ -205,7 +228,17 @@ const Index = () => {
       return;
     }
 
-    let message = "Hello Feel Laban! 🍨\n\n";
+    // Check if customer name is provided
+    if (!customerName.trim()) {
+      toast.error("Please enter your name for ordering");
+      return;
+    }
+
+    let message = `Hello Feel Laban! 🍨
+
+Customer Name: ${customerName}
+
+`;
     message += "I would like to place the following order:\n\n";
     message += "========================\n";
 
@@ -247,8 +280,8 @@ const Index = () => {
         ];
       case "louah":
         return ["Nutella Pistachio Kinder", "Chocolate Kinder"];
-      case "quasthutah":
-        return ["Mango", "Quasthutah Pistachio Nutella"];
+      case "qashtutah":
+        return ["Mango", "Qashtutah Pistachio Nutella"];
       case "specials":
         return [
           "Kabsa",
@@ -359,34 +392,42 @@ const Index = () => {
 
       {/* Floating Cart Button - Only show when items are added */}
       {itemCount > 0 && (
-        <div className="fixed bottom-20 left-1/2 transform -translate-x-1/2 z-40">
+        <div className="fixed bottom-16 left-1/2 transform -translate-x-1/2 z-40 w-[calc(100%-2rem)] max-w-md">
           <Button
             onClick={() => setIsCartOpen(true)}
-            className="bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-medium px-6 py-3 text-sm rounded-full shadow-lg flex items-center gap-2"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-medium px-6 py-3 text-sm rounded-lg shadow-lg flex items-center justify-between w-full transition-all duration-300 hover:shadow-xl"
           >
-            <Utensils className="h-5 w-5" />
-            <span>View Order</span>
-            <span className="bg-primary-foreground text-primary rounded-full px-2 py-1 text-xs font-bold">
-              {itemCount}
-            </span>
+            <div className="flex items-center gap-2">
+              <Utensils className="h-5 w-5" />
+              <span>View Order</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="bg-primary-foreground text-primary rounded-full px-2 py-1 text-xs font-bold">
+                {itemCount}
+              </span>
+              <ChevronRight className="h-5 w-5" />
+            </div>
           </Button>
         </div>
       )}
 
       {/* Cart Modal */}
       {isCartOpen && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-end sm:items-center justify-center">
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center">
           <div className="bg-card rounded-t-xl sm:rounded-xl w-full max-w-md max-h-[80vh] overflow-hidden flex flex-col">
             {/* Cart Header */}
-            <div className="bg-primary text-primary-foreground p-4 flex justify-between items-center">
-              <h2 className="font-poppins font-bold text-lg">Made for you</h2>
+            <div className="bg-card text-primary-foreground p-4 flex justify-between items-center border-b border-border">
+              <h2 className="font-poppins font-bold text-lg flex items-center gap-2 text-primary">
+                <Heart className="h-5 w-5 text-primary" />
+                <span>Made for You !</span>
+              </h2>
               <Button
                 variant="ghost"
                 size="icon"
                 onClick={() => setIsCartOpen(false)}
-                className="text-primary-foreground hover:bg-primary/20"
+                className="text-primary hover:bg-primary/20"
               >
-                <X className="h-6 w-6" />
+                <X className="h-6 w-6 text-primary" />
               </Button>
             </div>
 
@@ -394,44 +435,72 @@ const Index = () => {
             <div className="flex-1 overflow-y-auto p-4">
               {cartItems.length > 0 ? (
                 <div className="space-y-4">
+                  <h2 className="font-poppins font-bold text-lg text-foreground border-b border-blue-200 pb-2">
+                    Your Order
+                  </h2>
+
                   {cartItems.map((item) => (
                     <div
                       key={item.name}
-                      className="flex justify-between items-center border-b border-border pb-3"
+                      className="flex justify-between items-start"
                     >
-                      <div>
+                      <div className="flex-1">
                         <h3 className="font-poppins font-medium text-foreground">
                           {item.name}
                         </h3>
                         <p className="font-poppins text-sm text-muted-foreground">
-                          ₹{item.price} × {item.quantity}
+                          Qty: {item.quantity}
                         </p>
                       </div>
-                      <p className="font-poppins font-bold text-foreground">
-                        ₹{item.price * item.quantity}
-                      </p>
+                      <div className="text-right">
+                        <p className="font-poppins text-sm text-muted-foreground">
+                          ₹{item.price} × {item.quantity}
+                        </p>
+                        <p className="font-poppins font-bold text-foreground">
+                          ₹{item.price * item.quantity}
+                        </p>
+                      </div>
                     </div>
                   ))}
 
+                  {/* Customer Name Input */}
+                  <div className="mt-6 pt-4 border-t border-border">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Bell className="h-4 w-4 text-primary" />
+                      <label className="font-poppins text-sm text-foreground font-bold">
+                        Name required for Ordering*
+                      </label>
+                    </div>
+                    <input
+                      type="text"
+                      value={customerName}
+                      onChange={(e) => setCustomerName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      required
+                    />
+                  </div>
+
                   {/* Order Summary */}
-                  <div className="pt-4 border-t border-border">
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="font-poppins text-foreground">Subtotal</p>
+                  <div className="mt-4 bg-blue-50 rounded-lg p-3">
+                    <h3 className="font-poppins font-bold text-center text-foreground mb-2">
+                      Order Summary
+                    </h3>
+
+                    <div className="flex justify-between items-center mb-1">
+                      <p className="font-poppins text-foreground">Item Total</p>
                       <p className="font-poppins font-bold text-foreground">
                         ₹{calculateTotal()}
                       </p>
                     </div>
-                    <div className="flex justify-between items-center mb-2">
-                      <p className="font-poppins text-foreground">Delivery</p>
+
+                    <div className="border-t border-border my-2"></div>
+
+                    <div className="flex justify-between items-center">
                       <p className="font-poppins font-bold text-foreground">
-                        ₹0
-                      </p>
-                    </div>
-                    <div className="flex justify-between items-center mt-4 pt-4 border-t border-border">
-                      <p className="font-poppins font-bold text-lg text-foreground">
                         Total
                       </p>
-                      <p className="font-poppins font-bold text-lg text-primary">
+                      <p className="font-poppins font-bold text-primary">
                         ₹{calculateTotal()}
                       </p>
                     </div>
@@ -449,9 +518,13 @@ const Index = () => {
               <Button
                 onClick={placeOrder}
                 disabled={itemCount === 0}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-bold py-3 text-sm rounded-lg shadow hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-poppins font-bold py-3 text-sm rounded-lg shadow hover:shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed relative"
               >
-                <span>Order via WhatsApp</span>
+                <div className="absolute -inset-1.5 rounded-lg bg-gradient-to-r from-blue-500 to-blue-300 opacity-30 blur"></div>
+                <span className="flex items-center gap-2">
+                  <MessageCircle className="h-5 w-5" />
+                  Order via WhatsApp
+                </span>
               </Button>
             </div>
           </div>
