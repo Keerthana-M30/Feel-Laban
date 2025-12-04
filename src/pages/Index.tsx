@@ -44,25 +44,25 @@ const Index = () => {
       name: "KOSHARI Trio",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Trio.jpg",
     },
     "Pistachio Lotus": {
       name: "KOSHARI Pistachio Lotus",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Pistachio Lotus.jpg",
     },
     "Kinder Nutella": {
       name: "KOSHARI Kinder Nutella",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Kinder Nutella.jpg",
     },
     "Pistachio Nutella": {
       name: "KOSHARI Pistachio Nutella",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Pistachio Nutella.jpg",
     },
 
     // SALANKATIYA - 350
@@ -70,19 +70,19 @@ const Index = () => {
       name: "SALANKATIYA Pistachio Nutella",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Pistachio Nutella.jpg",
     },
     "Salankatiya Pistachio Lotus": {
       name: "SALANKATIYA Pistachio Lotus",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Pistachio Lotus.jpg",
     },
     "Salankatiya Trio": {
       name: "SALANKATIYA Trio",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Trio.jpg",
     },
 
     // Louah - 350
@@ -90,13 +90,13 @@ const Index = () => {
       name: "LOUAH Nutella Pistachio Kinder",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Nutella Pistachio Kinder.jpg",
     },
     "Chocolate Kinder": {
       name: "LOUAH Chocolate Kinder",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Chocolate Kinder.jpg",
     },
 
     // Qashtutah - 290
@@ -104,13 +104,13 @@ const Index = () => {
       name: "QASHTUTAH Mango",
       price: 290,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Mango.jpg",
     },
     "Qashtutah Pistachio Nutella": {
       name: "QASHTUTAH Pistachio Nutella",
       price: 290,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Pistachio Nutella.jpg",
     },
 
     // No category items
@@ -118,37 +118,37 @@ const Index = () => {
       name: "Kabsa",
       price: 380,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Kabsa.jpg",
     },
     "Creme De La Creme": {
       name: "Creme De La Creme",
       price: 380,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Creme de la  Creme.jpg",
     },
     "Lazy Cat": {
       name: "Lazy Cat",
       price: 250,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Lazy cat.jpg",
     },
-    "Chesse Bomb": {
-      name: "Chesse Bomb",
+    "Cheese Bomb": {
+      name: "Cheese Bomb",
       price: 290,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Cheese Bomb.jpg",
     },
     "Hebba Cake": {
       name: "Hebba Cake",
       price: 350,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Hebba Cake.jpg",
     },
     "AI Mazia": {
       name: "AI Mazia",
       price: 250,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/AI Mazia.jpg",
     },
 
     // Shakes
@@ -156,25 +156,25 @@ const Index = () => {
       name: "Nutella",
       price: 150,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Nutella.jpg",
     },
     "Pistachio Shake": {
       name: "Pistachio",
       price: 150,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Pistachio.jpg",
     },
     "Lotus Shake": {
       name: "Lotus",
       price: 150,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Lotus.jpg",
     },
     "Hot Chocolate": {
       name: "Hot Chocolate (250ml)",
       price: 129,
       quantity: 0,
-      image: "/Feel Laban - Kinder Choclate (TV Size).png",
+      image: "/Hot Chocolate.jpg",
     },
   });
 
@@ -220,6 +220,8 @@ const Index = () => {
     return Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
   };
 
+  const [nameError, setNameError] = useState(false);
+
   const placeOrder = () => {
     const orderItems = Object.values(cart).filter((item) => item.quantity > 0);
 
@@ -230,7 +232,7 @@ const Index = () => {
 
     // Check if customer name is provided
     if (!customerName.trim()) {
-      toast.error("Please enter your name for ordering");
+      setNameError(true);
       return;
     }
 
@@ -287,7 +289,7 @@ Customer Name: ${customerName}
           "Kabsa",
           "Creme De La Creme",
           "Lazy Cat",
-          "Chesse Bomb",
+          "Cheese Bomb",
           "Hebba Cake",
           "AI Mazia",
         ];
@@ -474,11 +476,23 @@ Customer Name: ${customerName}
                     <input
                       type="text"
                       value={customerName}
-                      onChange={(e) => setCustomerName(e.target.value)}
+                      onChange={(e) => {
+                        setCustomerName(e.target.value);
+                        if (nameError && e.target.value.trim()) {
+                          setNameError(false);
+                        }
+                      }}
                       placeholder="Enter your name"
-                      className="w-full px-4 py-2 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent ${
+                        nameError ? "border-red-500" : "border-gray-400"
+                      }`}
                       required
                     />
+                    {nameError && (
+                      <p className="mt-1 text-sm text-red-500">
+                        Please enter your name for ordering
+                      </p>
+                    )}
                   </div>
 
                   {/* Order Summary */}
