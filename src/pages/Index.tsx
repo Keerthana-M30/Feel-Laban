@@ -222,7 +222,36 @@ const Index = () => {
 
   const [nameError, setNameError] = useState(false);
 
-  const placeOrder = () => {
+  const sendOrderToEndpoint = async (orderData: any) => {
+    try {
+      const response = await fetch("https://savetron.2440066.xyz/laban", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderData),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Order sent successfully:", result);
+      toast.success("Order details sent to server");
+      return true;
+    } catch (error) {
+      console.error("Error sending order to endpoint:", error);
+      // Even if we can't send to the endpoint due to CORS or other issues,
+      // we should still allow the user to proceed with WhatsApp
+      toast.warning(
+        "Could not save order to server, but proceeding with WhatsApp"
+      );
+      return true; // Return true to continue with WhatsApp flow
+    }
+  };
+
+  const placeOrder = async () => {
     const orderItems = Object.values(cart).filter((item) => item.quantity > 0);
 
     if (orderItems.length === 0) {
@@ -236,6 +265,24 @@ const Index = () => {
       return;
     }
 
+    // Prepare data for the endpoint
+    const orderData = {
+      customer_name: customerName,
+      items: orderItems.map((item) => ({
+        product_name: item.name,
+        quantity: item.quantity,
+        price: item.price,
+        total: item.price * item.quantity,
+      })),
+      grand_total: calculateTotal(),
+      currency: "INR",
+      status: "pending_confirmation",
+    };
+
+    // Send order to endpoint first (non-blocking)
+    sendOrderToEndpoint(orderData);
+
+    // Continue immediately with WhatsApp flow without waiting
     let message = `Hello Feel Laban! 🍨
 
 Customer Name: ${customerName}
